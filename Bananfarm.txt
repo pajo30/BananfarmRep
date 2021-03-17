@@ -1,6 +1,6 @@
 Bananfarm
 
-Chefer:
+Chefer:g
 -namn
 -lön
 -kopplad till ett fält
