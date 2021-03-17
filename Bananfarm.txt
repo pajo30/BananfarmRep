@@ -1,0 +1,27 @@
+Bananfarm
+
+Chefer:
+-namn
+-lön
+-kopplad till ett fält
+
+Anställda:
+-Lön
+-namn
+-kopplade till chef
+
+Bananfält:
+-Antal träd
+-Storlek
+-Kopplade till bananträd
+
+Bananträd:
+-Typ av banan
+-Medellängd
+-Färg
+-Banantid
+-Kopplas till länder
+
+Länder:
+-Land
+-Temperatur
