@@ -25,3 +25,5 @@ Bananträd:
 Länder:
 -Land
 -Temperatur
+
+Banannamn
