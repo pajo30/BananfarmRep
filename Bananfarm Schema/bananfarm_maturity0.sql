@@ -16,31 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `employee`
+-- Table structure for table `maturity`
 --
 
-DROP TABLE IF EXISTS `employee`;
+DROP TABLE IF EXISTS `maturity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `employee` (
-  `Employee_id` int NOT NULL AUTO_INCREMENT,
-  `Employee_name` varchar(45) NOT NULL,
-  `Employee_wage` int DEFAULT NULL,
-  `Employee_title` varchar(45) DEFAULT NULL,
-  `Boss_boss_id` int NOT NULL,
-  `Boss_country_country_id` int NOT NULL,
-  PRIMARY KEY (`Employee_id`,`Boss_boss_id`,`Boss_country_country_id`),
-  KEY `fk_Employee_Boss1_idx` (`Boss_boss_id`,`Boss_country_country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+CREATE TABLE `maturity` (
+  `maturity_id` int NOT NULL AUTO_INCREMENT,
+  `maturity_colour` varchar(45) NOT NULL,
+  `maturity_avaragelength_inch` int NOT NULL,
+  `maturity_export_y/n` tinyint NOT NULL,
+  `bananasort_bananasort_id` int NOT NULL,
+  PRIMARY KEY (`maturity_id`,`bananasort_bananasort_id`),
+  KEY `fk_bananasort_idx` (`bananasort_bananasort_id`),
+  CONSTRAINT `fk_banansort` FOREIGN KEY (`bananasort_bananasort_id`) REFERENCES `bananasort` (`bananasort_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `employee`
+-- Dumping data for table `maturity`
 --
 
-LOCK TABLES `employee` WRITE;
-/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+LOCK TABLES `maturity` WRITE;
+/*!40000 ALTER TABLE `maturity` DISABLE KEYS */;
+INSERT INTO `maturity` VALUES (1,'Green',1,0,1),(2,'Green',3,0,1),(3,'Green',4,0,1),(4,'Green/Yellow',5,0,1),(5,'Green/Yellow',6,1,1);
+/*!40000 ALTER TABLE `maturity` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-24 11:19:44
+-- Dump completed on 2021-03-24 11:20:41
