@@ -1,0 +1,5 @@
+[{"maturity_id":1, "maturity_colour":"Green", "maturity_avaragelength_inch":1, "maturity_export_y/n":0, "bananasort_bananasort_id":1},
+ {"maturity_id":2, "maturity_colour":"Green", "maturity_avaragelength_inch":3, "maturity_export_y/n":0, "bananasort_bananasort_id":1},
+ {"maturity_id":3, "maturity_colour":"Green", "maturity_avaragelength_inch":4, "maturity_export_y/n":0, "bananasort_bananasort_id":1},
+ {"maturity_id":4, "maturity_colour":"Green/Yellow", "maturity_avaragelength_inch":5, "maturity_export_y/n":0, "bananasort_bananasort_id":1},
+ {"maturity_id":5, "maturity_colour":"Green/Yellow", "maturity_avaragelength_inch":6, "maturity_export_y/n":1, "bananasort_bananasort_id":1}]
