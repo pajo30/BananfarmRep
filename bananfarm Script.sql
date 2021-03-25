@@ -1,1 +1,0 @@
-SELECT * FROM bananfarm.country;
