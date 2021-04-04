@@ -118,8 +118,6 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `Employee_name`,
  1 AS `Employee_wage`,
  1 AS `Employee_title`,
- 1 AS `Boss_boss_id`,
- 1 AS `Boss_country_country_id`,
  1 AS `boss_id`,
  1 AS `boss_name`,
  1 AS `boss_wage`,
@@ -207,7 +205,7 @@ CREATE TABLE `maturity` (
 
 LOCK TABLES `maturity` WRITE;
 /*!40000 ALTER TABLE `maturity` DISABLE KEYS */;
-INSERT INTO `maturity` VALUES (1,'Green',1,0,1,'2021-02-15'),(2,'Green',3,0,1,'2021-02-22'),(3,'Green',4,0,1,'2021-02-05'),(4,'Green/Yellow',5,1,2,'2021-01-15'),(5,'Green/Yellow',6,1,2,'2021-01-20'),(6,'Green',4,0,2,'2021-02-22'),(7,'Green',3,0,2,'2021-02-19'),(8,'Green',3,0,3,'2021-02-25'),(9,'Green',2,0,3,'2021-02-05'),(10,'Green',3,0,3,'2021-02-10'),(11,'Green/Yellow',6,1,4,'2021-01-20'),(12,'Green/Yellow',6,1,4,'2021-01-25'),(13,'Green',3,0,4,'2021-02-25'),(14,'Green',4,0,5,'2021-02-28'),(15,'Green',2,0,5,'2021-02-27'),(16,'Green',3,0,5,'2021-02-17'),(17,'Green/Yellow',6,1,5,'2021-01-30'),(18,'Green',3,0,6,'2021-02-10'),(19,'Green',2,0,6,'2021-03-10'),(20,'Green',4,0,6,'2021-03-05'),(21,'Green',4,0,6,'2021-03-02'),(22,'Green/Yellow',5,1,7,'2020-12-31'),(23,'Green/Yellow',5,1,7,'2020-12-31'),(24,'Green/Yellow',6,1,7,'2020-12-31'),(25,'Green',3,0,8,'2021-03-10'),(26,'Green/Yellow',6,1,8,'2020-12-31'),(27,'Green',4,0,9,'2021-02-15'),(28,'Green/Yellow',6,1,10,'2021-01-10'),(29,'Green',3,0,10,'2021-03-12'),(30,'Green',4,0,11,'2021-03-24');
+INSERT INTO `maturity` VALUES (1,'Green',1,0,1,'2021-02-15'),(2,'Green',3,0,1,'2021-02-22'),(3,'Green',4,1,1,'2021-02-05'),(4,'Green/Yellow',5,1,2,'2021-01-15'),(5,'Green/Yellow',6,1,2,'2021-01-20'),(6,'Green',4,0,2,'2021-02-22'),(7,'Green',3,0,2,'2021-02-19'),(8,'Green',3,0,3,'2021-02-25'),(9,'Green',2,0,3,'2021-02-05'),(10,'Green',3,1,3,'2021-02-10'),(11,'Green/Yellow',6,1,4,'2021-01-20'),(12,'Green/Yellow',6,1,4,'2021-01-25'),(13,'Green',3,0,4,'2021-02-25'),(14,'Green',4,0,5,'2021-02-28'),(15,'Green',2,0,5,'2021-02-27'),(16,'Green',3,0,5,'2021-02-17'),(17,'Green/Yellow',6,1,5,'2021-01-30'),(18,'Green',3,0,6,'2021-02-10'),(19,'Green',2,0,6,'2021-03-10'),(20,'Green',4,0,6,'2021-03-05'),(21,'Green',4,1,6,'2021-03-02'),(22,'Green/Yellow',5,0,7,'2020-12-31'),(23,'Green/Yellow',5,1,7,'2020-12-31'),(24,'Green/Yellow',6,1,7,'2020-12-31'),(25,'Green',3,0,8,'2021-03-10'),(26,'Green/Yellow',6,1,8,'2020-12-31'),(27,'Green',4,1,9,'2021-02-15'),(28,'Green/Yellow',6,1,10,'2021-01-10'),(29,'Green',3,0,10,'2021-03-12'),(30,'Green',4,1,11,'2021-03-24');
 /*!40000 ALTER TABLE `maturity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,21 +218,22 @@ DROP TABLE IF EXISTS `sorts and fields`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `sorts and fields` AS SELECT 
- 1 AS `bananasort_id`,
  1 AS `banana_name`,
  1 AS `bananafield_id`,
  1 AS `bananafield_m2`,
  1 AS `bananafield_treecount`,
- 1 AS `bananasort_bananasort_id`,
  1 AS `maturity_maturity_id`,
- 1 AS `Boss_boss_id`,
  1 AS `country_country_id`*/;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Dumping events for database 'bananfarm'
+--
+
+--
 -- Dumping routines for database 'bananfarm'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `StaffInBrazil` */;
+/*!50003 DROP PROCEDURE IF EXISTS `Staff_Search_County` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -244,12 +243,14 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `StaffInBrazil`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Staff_Search_County`(
+IN countryName VARCHAR(255)
+)
 BEGIN
  SELECT * FROM bananfarm.employee
 join bananfarm.boss on boss_boss_id = boss_id
-join bananfarm.country on country_country_id = country_id
-where country_name = "Brazil"
+join bananfarm.country on boss.country_country_id = country_id
+where country_name = countryName
 order by employee_title;
 
 END ;;
@@ -258,7 +259,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `StaffInEgypt` */;
+/*!50003 DROP PROCEDURE IF EXISTS `TreeCount/BanananSort` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -268,103 +269,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `StaffInEgypt`()
-BEGIN
- SELECT * FROM bananfarm.employee
-join bananfarm.boss on boss_boss_id = boss_id
-join bananfarm.country on country_country_id = country_id
-where country_name = "Egypten"
-order by employee_title;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `StaffInIndia` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `StaffInIndia`()
-BEGIN
- SELECT * FROM bananfarm.employee
-join bananfarm.boss on boss_boss_id = boss_id
-join bananfarm.country on country_country_id = country_id
-where country_name = "India"
-order by employee_title;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `StaffInMexico` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `StaffInMexico`()
-BEGIN
- SELECT * FROM bananfarm.employee
-join bananfarm.boss on boss_boss_id = boss_id
-join bananfarm.country on country_country_id = country_id
-where country_name = "Mexico"
-order by employee_title;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `StaffInSpain` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `StaffInSpain`()
-BEGIN
- SELECT * FROM bananfarm.employee
-join bananfarm.boss on boss_boss_id = boss_id
-join bananfarm.country on country_country_id = country_id
-where country_name = "Spain"
-order by employee_title;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `TreeCountPerBanananSort` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TreeCountPerBanananSort`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TreeCount/BanananSort`()
 BEGIN
 SELECT banana_name, SUM(bananafield_treecount) FROM bananfarm.bananafield
 join bananasort on bananasort_bananasort_id = bananasort_id
@@ -389,7 +294,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `boss and employees` AS select `employee`.`Employee_id` AS `Employee_id`,`employee`.`Employee_name` AS `Employee_name`,`employee`.`Employee_wage` AS `Employee_wage`,`employee`.`Employee_title` AS `Employee_title`,`employee`.`Boss_boss_id` AS `Boss_boss_id`,`employee`.`Boss_country_country_id` AS `Boss_country_country_id`,`boss`.`boss_id` AS `boss_id`,`boss`.`boss_name` AS `boss_name`,`boss`.`boss_wage` AS `boss_wage`,`boss`.`boss_title` AS `boss_title`,`boss`.`country_country_id` AS `country_country_id` from (`employee` join `boss` on((`boss`.`boss_id` = `employee`.`Boss_boss_id`))) */;
+/*!50001 VIEW `boss and employees` AS select `employee`.`Employee_id` AS `Employee_id`,`employee`.`Employee_name` AS `Employee_name`,`employee`.`Employee_wage` AS `Employee_wage`,`employee`.`Employee_title` AS `Employee_title`,`boss`.`boss_id` AS `boss_id`,`boss`.`boss_name` AS `boss_name`,`boss`.`boss_wage` AS `boss_wage`,`boss`.`boss_title` AS `boss_title`,`boss`.`country_country_id` AS `country_country_id` from (`employee` join `boss` on((`boss`.`boss_id` = `employee`.`Boss_boss_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -407,7 +312,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `sorts and fields` AS select `bananasort`.`bananasort_id` AS `bananasort_id`,`bananasort`.`banana_name` AS `banana_name`,`bananafield`.`bananafield_id` AS `bananafield_id`,`bananafield`.`bananafield_m2` AS `bananafield_m2`,`bananafield`.`bananafield_treecount` AS `bananafield_treecount`,`bananafield`.`bananasort_bananasort_id` AS `bananasort_bananasort_id`,`bananafield`.`maturity_maturity_id` AS `maturity_maturity_id`,`bananafield`.`Boss_boss_id` AS `Boss_boss_id`,`bananafield`.`country_country_id` AS `country_country_id` from (`bananasort` join `bananafield` on((`bananasort`.`bananasort_id` = `bananafield`.`bananasort_bananasort_id`))) */;
+/*!50001 VIEW `sorts and fields` AS select `bananasort`.`banana_name` AS `banana_name`,`bananafield`.`bananafield_id` AS `bananafield_id`,`bananafield`.`bananafield_m2` AS `bananafield_m2`,`bananafield`.`bananafield_treecount` AS `bananafield_treecount`,`bananafield`.`maturity_maturity_id` AS `maturity_maturity_id`,`bananafield`.`country_country_id` AS `country_country_id` from (`bananasort` join `bananafield` on((`bananasort`.`bananasort_id` = `bananafield`.`bananasort_bananasort_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -421,4 +326,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-25  9:56:11
+-- Dump completed on 2021-04-04 11:25:38
